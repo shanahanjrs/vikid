@@ -18,16 +18,21 @@
 <div class=page>
     <h1>VIKI</h1>
 
+    <!-- header -->
     <div class=metanav>
 
     </div>
 
+    <!-- flash message -->
     {% for message in get_flashed_messages() %}
         <div class=flash>{{ message }}</div>
     {% endfor %}
 
-
+    <!-- content -->
     {% block body %}{% endblock %}
 
+    <!-- footer -->
+    <div class="footer">
+    </div>
 
 </div>

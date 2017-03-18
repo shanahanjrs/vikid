@@ -16,7 +16,7 @@ import src._conf
 
 
 class App():
-    """ Application library for viki """
+    """ Application library for vikid """
 
     def __init__(self):
         """ Initialize Application configuration

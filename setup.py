@@ -34,6 +34,7 @@ setup(
         'pytest',
     ],
     keywords='deployment setuptools development builds automation webhooks scheduler job-runner',
+    zip_safe=False,
     include_package_data=True,
     packages=find_packages(),
     scripts=['vikid/vikid.py']
