@@ -23,7 +23,6 @@ License:
 
 # --- Imports
 
-
 try:
     from flask import Flask, request, jsonify, render_template
     from src.job.job import Job
@@ -37,8 +36,8 @@ except ImportError as error:
 
 # --- Setup
 
-
 debug = True
+
 
 # --- Classes / globals
 
@@ -60,7 +59,7 @@ log_level = logging.WARNING
 # sqlite = sqlite_connection.cursor()
 
 
-# --- Routes
+# --- Main Route
 
 
 @app.route("/")
@@ -73,21 +72,20 @@ def root():
     return render_template('home.html', data=ret)
 
 
-# --- Import other Routes (Api, custom routes)
+# --- Api Route
 
-
-# main api
 from src.blueprints import api_blueprint
 app.register_blueprint(api_blueprint.api_blueprint)
 
 
+# --- Other/custom Routes
+
 # Custom route blueprints go here.
-# from src.blueprints import YOURBLUEPRINT
-# app.register_blueprint(YOURBLUEPRINT.BLUEPRINTNAME)
+# from src.blueprints import <YOURBLUEPRINT>
+# app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
 
 
 # --- Main
-
 
 if __name__ == "__main__":
 

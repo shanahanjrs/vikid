@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import src._version
 
 setup(
-    name='viki',
+    name='vikid',
     version=src._version.__version__,
     url='https://vikiautomation.com',
     author='John Shanahan',
@@ -36,5 +36,5 @@ setup(
     keywords='deployment setuptools development builds automation webhooks scheduler job-runner',
     include_package_data=True,
     packages=find_packages(),
-    scripts=['vikid/vikid.py', 'viki/viki.py']
+    scripts=['vikid/vikid.py']
 )
