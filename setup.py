@@ -37,5 +37,5 @@ setup(
     zip_safe=False,
     include_package_data=True,
     packages=find_packages(),
-    scripts=['vikid/vikid.py']
+    scripts=['bin/vikid'],
 )

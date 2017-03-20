@@ -85,20 +85,21 @@ app.register_blueprint(api_blueprint.api_blueprint)
 # app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
 
 
-# --- Main
 
-if __name__ == "__main__":
+# --- Preflight
 
-    # --- Pre
-    if not os.path.isdir(log_dir):
-        os.mkdir(log_dir)
+if not os.path.isdir(log_dir):
+    os.mkdir(log_dir)
 
-    logging.basicConfig(filename=log_file, level=log_level)
+logging.basicConfig(filename=log_file, level=log_level)
 
-    # --- Start
-    if debug:
-        # Set debug options
-        app.debug = True
-        log_level = logging.DEBUG
 
-    app.run()
+# --- Start
+
+if debug:
+    # Set debug options
+    app.debug = True
+    log_level = logging.DEBUG
+
+app.run()
+
