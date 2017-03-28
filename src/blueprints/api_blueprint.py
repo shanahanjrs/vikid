@@ -9,7 +9,6 @@ api_blueprint.py
 """
 
 # --- Imports
-
 from flask import Blueprint, jsonify, request
 from src.job.job import Job
 
@@ -24,16 +23,13 @@ api_blueprint = Blueprint(blueprint_name, __name__,
 
 # --- Api endpoints
 
-@api_blueprint.route("/jobs")
+@api_blueprint.route("/jobs", methods=['GET'])
 def jobs():
     """ List all jobs """
-
-    ret = jsonify(job.get_jobs())
-
-    return ret
+    return jsonify(job.get_jobs())
 
 
-@api_blueprint.route("/job/<string:job_name>", methods = ['GET', 'POST', 'PUT', 'DELETE'])
+@api_blueprint.route("/job/<string:job_name>", methods=['GET', 'POST', 'PUT', 'DELETE'])
 def get_job(job_name):
     """ Show single job details by name """
 
@@ -44,12 +40,14 @@ def get_job(job_name):
         ret = job.get_job_by_name(job_name)
 
     if request.method == 'POST':
+        # Create job
         # Requires "application/json" mime type and valid JSON body
         # containing description, and steps
         job_config = str(request.get_json())
         ret = job.create_job(job_name, job_config)
 
     if request.method == 'PUT':
+        # Updated a job
         # Requires "application/json" mime type and valid JSON body
         # containing field/s to be updated
         ret = job.update_job(job_name)
@@ -64,14 +62,19 @@ def get_job(job_name):
     return jsonify(ret)
 
 
-@api_blueprint.route("/job/<string:job_name>/run", methods = ['POST'])
+@api_blueprint.route("/job/<string:job_name>/run", methods=['POST'])
 def run_job(job_name):
     """ Run specific job by name """
-
     return jsonify(job.run_job(job_name))
 
 
-@api_blueprint.route("/the3laws")
+@api_blueprint.route("/job/<string:job_name>/output", methods=['GET'])
+def run_job(job_name):
+    """ Run specific job by name """
+    return jsonify(job.run_job(job_name))
+
+
+@api_blueprint.route("/the3laws", methods=['GET'])
 def the_three_laws():
     """ The three laws of robotics """
     return jsonify('A robot may not injure a human being or, through inaction, allow a human being to come to harm. ' +
