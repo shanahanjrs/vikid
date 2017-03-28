@@ -25,11 +25,12 @@ License:
 
 try:
     from flask import Flask, request, jsonify, render_template
+    import os
+    import logging
+
     from src.job.job import Job
     from src.application.app import App
-    import os
-    import sqlite3
-    import logging
+    from src.blueprints import api_blueprint
 except ImportError as error:
     exit('ImportError: ' + str(error))
 
@@ -47,20 +48,13 @@ viki_app = App()
 job = Job()
 version = viki_app.version
 
-home_directory = "/usr/local/viki"
-log_dir = "/usr/local/viki/logs"
-log_file = log_dir + "/" + "viki.log"
+home_directory = "{homedir}/.viki".format(homedir=os.path.expanduser("~"))
+log_dir = home_directory + "/logs"
+log_file = log_dir + "/viki.log"
 log_level = logging.WARNING
-
-# Sqlite
-# sqlite_file = "/path/to/sqlite3/file"
-
-# sqlite_connection = sqlite3.connect(sqlite_file)
-# sqlite = sqlite_connection.cursor()
 
 
 # --- Main Route
-
 
 @app.route("/")
 def root():
@@ -74,7 +68,6 @@ def root():
 
 # --- Api Route
 
-from src.blueprints import api_blueprint
 app.register_blueprint(api_blueprint.api_blueprint)
 
 
@@ -83,7 +76,6 @@ app.register_blueprint(api_blueprint.api_blueprint)
 # Custom route blueprints go here.
 # from src.blueprints import <YOURBLUEPRINT>
 # app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
-
 
 
 # --- Preflight
