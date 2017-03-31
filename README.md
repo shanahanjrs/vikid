@@ -1,36 +1,36 @@
-# Viki
+# Vikid
 
-### Job automation platform
+### Viki job automation platform daemon
 
 ## Features of Viki
 - Simple to start up and use
 - Small and lightweight
-- Trigger a job run automatically via Webhook or manually with the command line
-- Uses JSON instead of xml for data formatting
+- Trigger a job run automatically via Webhook or manually with the command line tool
+- Uses JSON instead of XML
 
 ## Installing
-Normal installation:
+Pip installation:
 ```
-pip install viki
+pip install vikid
 ```
 
 For development:
 ```
-$ git clone https://github.com/shanahanjrs/viki
-$ cd viki; pip3 install -e .
+$ git clone https://github.com/shanahanjrs/vikid
+$ cd vikid
+$ pip3 install -e .
 ```
 
 ## FAQ
 
 ### How do I start the Viki daemon?
-Simple, run `$ vikid` to start the daemon. Starting with supervisor recommended.
+Simple, run `$ vikid` to start the daemon. Starting with Monit recommended.
 
 ### How do I use the command line tool?
-By using `$ viki` you can see a list of possible options to use Viki and even generate the system files needed for it to run.
+Install [viki](https://github.com/shanahanjrs/vikid) and run `viki -h` to get started.
 
 ### Will there be Windows support any time soon?
-At the moment there is no plan to support windows based operating systems. Linux/OSx only at the time.
+At the moment there is no plan to support windows operating systems.
 
-## License
-
+### License
 Code released under the [Apache 2.0 License](https://github.com/shanahanjrs/viki/blob/master/LICENSE.md).
