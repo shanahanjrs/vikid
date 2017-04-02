@@ -35,7 +35,7 @@ class Job:
         # TODO Move this to a central place so all classes can use it
 
         # Change to just /home/viki eventually
-        self.home = "/usr/local/viki"
+        self.home = os.path.expanduser("~") + "/.viki"
 
         # Path to the jobs directory relative to self.home
         self.jobs_path = self.home + "/" + "jobs"

@@ -23,13 +23,13 @@ api_blueprint = Blueprint(blueprint_name, __name__,
 
 # --- Api endpoints
 
-@api_blueprint.route("/jobs", methods=['GET'])
+@api_blueprint.route("/api/v1/jobs", methods=['GET'])
 def jobs():
     """ List all jobs """
     return jsonify(job.get_jobs())
 
 
-@api_blueprint.route("/job/<string:job_name>", methods=['GET', 'POST', 'PUT', 'DELETE'])
+@api_blueprint.route("/api/v1/job/<string:job_name>", methods=['GET', 'POST', 'PUT', 'DELETE'])
 def get_job(job_name):
     """ Show single job details by name """
 
@@ -62,19 +62,19 @@ def get_job(job_name):
     return jsonify(ret)
 
 
-@api_blueprint.route("/job/<string:job_name>/run", methods=['POST'])
+@api_blueprint.route("/api/v1/job/<string:job_name>/run", methods=['POST'])
 def run_job(job_name):
     """ Run specific job by name """
     return jsonify(job.run_job(job_name))
 
 
-@api_blueprint.route("/job/<string:job_name>/output", methods=['GET'])
+@api_blueprint.route("/api/v1/job/<string:job_name>/output", methods=['GET'])
 def output_job(job_name):
     """ Get the last run's output of a specific job """
     return jsonify(job.output_job(job_name))
 
 
-@api_blueprint.route("/3laws", methods=['GET'])
+@api_blueprint.route("/api/v1/3laws", methods=['GET'])
 def three_laws():
     """ The three laws of robotics easter-egg """
     return jsonify('A robot may not injure a human being or, through inaction, allow a human being to come to harm. ' +
