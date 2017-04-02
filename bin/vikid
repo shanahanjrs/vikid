@@ -54,7 +54,7 @@ log_file = log_dir + "/viki.log"
 log_level = logging.WARNING
 
 
-# --- Main Route
+# --- UI Route
 
 @app.route("/")
 def root():
@@ -93,5 +93,5 @@ if debug:
     app.debug = True
     log_level = logging.DEBUG
 
-app.run()
+app.run(port=9876)
 

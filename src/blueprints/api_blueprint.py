@@ -2,9 +2,9 @@
 
 """ 
 api_blueprint.py
- ~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
-  This module implements the main Job api for Viki.
+This module implements the main Job api for Viki.
 :license: Apache2, see LICENSE for more details. 
 """
 
@@ -69,14 +69,14 @@ def run_job(job_name):
 
 
 @api_blueprint.route("/job/<string:job_name>/output", methods=['GET'])
-def run_job(job_name):
-    """ Run specific job by name """
-    return jsonify(job.run_job(job_name))
+def output_job(job_name):
+    """ Get the last run's output of a specific job """
+    return jsonify(job.output_job(job_name))
 
 
-@api_blueprint.route("/the3laws", methods=['GET'])
-def the_three_laws():
-    """ The three laws of robotics """
+@api_blueprint.route("/3laws", methods=['GET'])
+def three_laws():
+    """ The three laws of robotics easter-egg """
     return jsonify('A robot may not injure a human being or, through inaction, allow a human being to come to harm. ' +
         'A robot must obey the orders given it by human beings except where such orders would conflict with the First Law. ' +
         'A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws.')

@@ -167,7 +167,7 @@ class Job:
         return {"success": success, "message": message, "name": job_name, "config_json": contents}
 
 
-    def get_last_run_output_by_name(self, name):
+    def output_job(self, name):
         """
         Get the output file of a specific job and return the contents of the file
         """
