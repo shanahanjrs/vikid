@@ -48,7 +48,8 @@ viki_app = App()
 job = Job()
 version = viki_app.version
 
-home_directory = "{homedir}/.viki".format(homedir=os.path.expanduser("~"))
+# TODO pull all of this from App
+home_directory = viki_app.home
 log_dir = home_directory + "/logs"
 log_file = log_dir + "/viki.log"
 log_level = logging.WARNING
