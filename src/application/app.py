@@ -13,6 +13,7 @@ app.py
 import os
 import src._version
 import src._conf
+import logging
 
 
 class App():
@@ -44,6 +45,24 @@ class App():
         # File permissions
         self.file_perms = 0o755
 
+        # Logging configuration
+        self.logging_config = dict(
+            version = 1,
+            formatters = {
+                'f': {'format':
+                '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'}
+            },
+            handlers = {
+                'h': {'class': 'logging.FileHandler',
+                'formatter': 'f',
+                'filename': self.logfile_path + '/viki.log',
+                'level': logging.DEBUG}
+            },
+            root = {
+                'handlers': ['h'],
+                'level': logging.DEBUG,
+            },
+        )
 
     def check_system_setup(self):
         """ This will be run every time viki starts up

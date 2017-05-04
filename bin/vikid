@@ -27,6 +27,7 @@ try:
     from flask import Flask, request, jsonify, render_template
     import os
     import logging
+    from logging.config import dictConfig
 
     from src.job.job import Job
     from src.application.app import App
@@ -50,17 +51,18 @@ version = viki_app.version
 
 # TODO pull all of this from App
 home_directory = viki_app.home
-log_dir = home_directory + "/logs"
-log_file = log_dir + "/viki.log"
-log_level = logging.WARNING
+dictConfig(viki_app.logging_config)
+logger = logging.getLogger()
 
+
+# Start logging
+logger.info('===== Vikid =====')
 
 # --- UI Route
 
 @app.route("/")
 def root():
     """ Home """
-    logging.info('--> Func:root')
 
     ret = {"name": "viki", "version": version}
 
@@ -79,20 +81,7 @@ app.register_blueprint(api_blueprint.api_blueprint)
 # app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
 
 
-# --- Preflight
-
-if not os.path.isdir(log_dir):
-    os.mkdir(log_dir)
-
-logging.basicConfig(filename=log_file, level=log_level)
-
-
 # --- Start
-
-if debug:
-    # Set debug options
-    app.debug = True
-    log_level = logging.DEBUG
 
 app.run(port=9898)
 
