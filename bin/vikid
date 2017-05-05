@@ -43,7 +43,6 @@ debug = True
 
 # --- Classes / globals
 
-
 app = Flask(__name__)
 viki_app = App()
 job = Job()
@@ -53,7 +52,6 @@ version = viki_app.version
 home_directory = viki_app.home
 dictConfig(viki_app.logging_config)
 logger = logging.getLogger()
-
 
 # Start logging
 logger.info('===== Vikid =====')
@@ -73,9 +71,6 @@ def root():
 
 app.register_blueprint(api_blueprint.api_blueprint)
 
-
-# --- Other/custom Routes
-
 # Custom route blueprints go here.
 # from src.blueprints import <YOURBLUEPRINT>
 # app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
@@ -84,4 +79,3 @@ app.register_blueprint(api_blueprint.api_blueprint)
 # --- Start
 
 app.run(port=9898)
-

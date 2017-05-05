@@ -18,7 +18,8 @@ template_folder_name = 'templates'
 
 job = Job()
 
-api_blueprint = Blueprint(blueprint_name, __name__,
+api_blueprint = Blueprint(blueprint_name,
+                          __name__,
                           template_folder=template_folder_name)
 
 # --- Api endpoints
@@ -31,7 +32,12 @@ def jobs():
 
 @api_blueprint.route("/api/v1/job/<string:job_name>", methods=['GET', 'POST', 'PUT', 'DELETE'])
 def get_job(job_name):
-    """ Show single job details by name """
+    """ Actions for a single job specified by name
+    GET: Gets details of a single job
+    POST: Creates a job out of specified details sent as post parameters
+    PUT: Updates a job with specified details sent as parameters
+    DELETE: Deletes a job with specified name
+    """
 
     ret = None
 

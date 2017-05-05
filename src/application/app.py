@@ -2,7 +2,7 @@
 
 """ 
 app.py
- ~~~~~~~~~~~~~~~~
+ ~~~~~~
 
   This module implements the App class for main application details and system checks / maintenance.
 :license: Apache2, see LICENSE for more details. 
