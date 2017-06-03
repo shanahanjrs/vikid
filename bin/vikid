@@ -24,14 +24,14 @@ License:
 # --- Imports
 
 try:
-    from flask import Flask, request, jsonify, render_template
+    from flask import Flask, request, jsonify
     import os
     import logging
     from logging.config import dictConfig
 
     from src.job.job import Job
     from src.application.app import App
-    from src.blueprints import api_blueprint
+    from src.blueprints import api_blueprint, ui_blueprint
 except ImportError as error:
     exit('ImportError: ' + str(error))
 
@@ -58,13 +58,7 @@ logger.info('===== Vikid =====')
 
 # --- UI Route
 
-@app.route("/")
-def root():
-    """ Home """
-
-    ret = {"name": "viki", "version": version}
-
-    return render_template('home.html', data=ret)
+app.register_blueprint(ui_blueprint.ui_blueprint)
 
 
 # --- Api Route
