@@ -14,9 +14,7 @@ import subprocess
 import json
 import uuid
 
-from src.fs.fs import Fs
-
-filesystem = Fs()
+from src.fs import fs as filesystem
 
 
 class Job:
@@ -250,10 +248,9 @@ class Job:
             #     description
             #     steps
 
-
             # Find job
             if not filesystem.job_exists(name):
-                raise ValueError('Job not found')
+                raise ValueError('Job {} not found'.format(name))
 
             # Prep new config
 

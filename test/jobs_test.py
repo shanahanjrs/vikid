@@ -10,7 +10,7 @@ Usage:
 # --- Imports
 
 from src.job.job import Job
-from src.fs.fs import Fs
+from src.fs import fs as filesystem
 
 import sys
 import os
@@ -21,7 +21,6 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 
 job = Job()
-filesystem = Fs()
 
 
 # --- Test private functions

@@ -1,9 +1,10 @@
 .idea
 .cache
-*.pyc
 *egg-info
 .eggs
 MANIFEST
-build
-dist
-__pycache__
+build/
+dist/
+eggs/
+__pycache__/
+docs/_build/

@@ -11,7 +11,7 @@ ProcessId library - internal to Viki
 import os
 from src.application.app import App
 
-class Lock(object):
+class Lock():
     """ Lock/pid file library for viki """
 
 
