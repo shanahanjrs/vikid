@@ -15,6 +15,8 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+<body>
+
 <div class=page>
 
     <!-- header -->
@@ -31,7 +33,12 @@
     {% block body %}{% endblock %}
 
     <!-- footer -->
-    <div class="footer">
-    </div>
+    <footer>
+        <div id="footer_content">
+            This is the footer
+        </div>
+    </footer>
 
 </div>
+
+</body>

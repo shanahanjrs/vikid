@@ -20,12 +20,35 @@ h2              { font-size: 1.2em; }
 .error          { background: #f0d6d6; padding: 0.5em; }
 */
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     background-color: #f4f5f5;
     width: 900px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 100px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    bottom: -100px;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+#footer_content {
+    width: 900px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
     border-left: 1px solid black;
     border-right: 1px solid black;
 }
-

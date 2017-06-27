@@ -32,8 +32,11 @@ try:
     from src.job.job import Job
     from src.application.app import App
     from src.blueprints import api_blueprint, ui_blueprint
+
+    import signal
+    import sys
 except ImportError as error:
-    exit('ImportError: ' + str(error))
+    sys.exit('ImportError: ' + str(error))
 
 
 # --- Setup
@@ -65,11 +68,14 @@ app.register_blueprint(ui_blueprint.ui_blueprint)
 
 app.register_blueprint(api_blueprint.api_blueprint)
 
-# Custom route blueprints go here.
-# from src.blueprints import <YOURBLUEPRINT>
-# app.register_blueprint(<YOURBLUEPRINT>.<BLUEPRINTNAME>)
-
 
 # --- Start
+
+# Grab a keyboard interrupt
+def signal_handler(signal, frame):
+    print('Keyboard interrupt')
+    sys.exit(130)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 app.run(port=9898)
