@@ -62,7 +62,7 @@ def check_system_setup():
     that the jobs directory exists.
     If those are not setup correctly you will need to run viki with sudo to create them.
     """
-    dirs = [home, jobs_path, job_config_path]
+    dirs = [home, jobs_path, job_config_path, job_config_filename, logfile_path]
 
     for j in dirs:
         if not os.path.exists(j):

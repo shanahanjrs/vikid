@@ -24,17 +24,18 @@ License:
 # --- Imports
 
 try:
+    import signal
+    import sys
+
     from flask import Flask, request, jsonify
     import os
     import logging
     from logging.config import dictConfig
 
     from src.job.job import Job
-    from src.application.app import App
+    from src.application import app as viki_app
     from src.blueprints import api_blueprint, ui_blueprint
 
-    import signal
-    import sys
 except ImportError as error:
     sys.exit('ImportError: ' + str(error))
 
@@ -47,9 +48,11 @@ debug = True
 # --- Classes / globals
 
 app = Flask(__name__)
-viki_app = App()
 job = Job()
 version = viki_app.version
+
+if not viki_app.check_system_setup():
+    sys.exit('System check failed. Please run `sudo viki --setup`')
 
 # TODO pull all of this from App
 home_directory = viki_app.home
