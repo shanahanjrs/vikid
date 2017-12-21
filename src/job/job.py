@@ -13,6 +13,7 @@ import os
 import subprocess
 import json
 import uuid
+from typing import Any, Dict, Tuple, List, IO
 
 from src.fs import fs as filesystem
 
@@ -33,26 +34,27 @@ class Job:
         # TODO Move this to a central place so all classes can use it
 
         # Change to just /home/viki eventually
-        self.home = os.path.expanduser("~") + "/.viki"
+        self.home: str = os.path.expanduser("~") + "/.viki"
 
         # Path to the jobs directory relative to self.home
-        self.jobs_path = self.home + "/" + "jobs"
+        self.jobs_path: str = self.home + "/" + "jobs"
 
         # Path to the jobs STDOUT file
-        self.job_output_file = "output.txt"
+        self.job_output_file: str = "output.txt"
 
         # Name of job configuration file
-        self.job_config_filename = "config.json"
+        self.job_config_filename: str = "config.json"
 
 
     # --- Job internals
 
 
     @staticmethod
-    def _quote_string(string, single_quote=True):
+    def _quote_string(string: str, single_quote: bool = True) -> str:
         """ Takes a string and returns it
         back surrounded by quotes
         """
+        quote: str
 
         if single_quote:
             quote = "'"
@@ -62,7 +64,7 @@ class Job:
         return quote + string + quote
 
 
-    def _run_shell_command(self, command, output_filename, job_arguments=None):
+    def _run_shell_command(self, command: str, output_filename: str, job_arguments: Any = None) -> Tuple[bool, int]:
         """ _run_shell_command
         string:command Shell command to run
         string:file path Where the command results (stdout) are stored
@@ -70,6 +72,9 @@ class Job:
         Runs the given command and stores results in a file
         Returns Tuple (True|False, Return code)
         """
+        output_file_obj: IO[Any]
+        sh_script_name: str
+        child_process: List[str]
 
         # Generate output file for run results
         output_file_obj = open(output_filename, 'a')
@@ -81,7 +86,7 @@ class Job:
             sh_script_obj.close()
 
         # Create the bash command
-        child_process = [b'/bin/bash', b'-xe', sh_script_name]
+        child_process = [u'/bin/bash', u'-xe', sh_script_name]
 
         # If the job was passed any args, send them into the child process as well
         if job_arguments is not None and len(job_arguments) > 0:
@@ -113,45 +118,42 @@ class Job:
     # --- Job functions
 
 
-    def get_jobs(self):
+    def get_jobs(self) -> Dict[str, Any]:
         """
         List jobs in /usr/local/viki/jobs
         Takes no parameters
         """
-        message = "Ok"
-        success = 1
-        jobs_list = []
+        message: str = "Ok"
+        success: int = 1
 
         try:
-
             # Get all job dirs
             jobs_dir_ls = next(os.walk(self.jobs_path))
-            jobs_list = jobs_dir_ls[1]
+            jobs_list: List[str] = jobs_dir_ls[1]
 
         except OSError as error:
             message = str(error)
             success = 0
 
-        ret = {"success": success, "message": message, "jobs": jobs_list}
+        ret: Dict[str, Any] = {"success": success, "message": message, "jobs": jobs_list}
 
         return ret
 
 
-    def get_job_by_name(self, job_name):
+    def get_job_by_name(self, job_name: str) -> Dict[str, Any]:
         """
         Get details of a single job by name
         string:name Name of specific job
         """
-        message = "Ok"
-        success = 1
-        contents = ""
+        message: str = "Ok"
+        success: int = 1
+        contents: str = ""
 
         try:
-
             if job_name is None:
                 raise ValueError('Missing required field: job_name')
 
-            job_dir = self.jobs_path + "/" + job_name
+            job_dir: str = self.jobs_path + "/" + job_name
 
             if os.path.isdir(job_dir) and os.path.exists(job_dir + "/" + self.job_config_filename):
                 contents = filesystem.read_job_file(job_dir + "/" + self.job_config_filename)
@@ -162,7 +164,9 @@ class Job:
             message = str(error)
             success = 0
 
-        return {"success": success, "message": message, "name": job_name, "config_json": contents}
+        ret: Dict[str, Any] = {"success": success, "message": message, "name": job_name, "config_json": contents}
+
+        return ret
 
 
     def output_job(self, name):
