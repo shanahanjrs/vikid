@@ -1,0 +1,8 @@
+---
+name: "viki"
+version: 0.0.1
+lastPull: "00:00:01 22:12:2017"
+appConfig:
+  homeDir: "{userhome}/.viki"
+  jobsDir: "{vikihome}/jobs"
+  logFile: "{vikihome}/logs"

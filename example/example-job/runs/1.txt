@@ -1,0 +1,5 @@
+~/Books> ll
+drwxr-xr-x   4 jrs  staff   128B Aug 26  2014 Arduino Cookbook
+drwxr-xr-x   8 jrs  staff   256B Jan  8  2015 Artificial_Intelligence
+drwxr-xr-x   4 jrs  staff   128B Dec 17  2014 DataMining
+drwxr-xr-x   4 jrs  staff   128B Jan  8  2015 DataStructures

@@ -1,0 +1,14 @@
+~> ll
+total 2216
+drwx------   10 jrs  staff   320B Dec  4 19:19 Applications
+drwxr-xr-x   39 jrs  staff   1.2K Sep 25 21:42 Books
+drwx------+  49 jrs  staff   1.5K Dec 14 22:34 Desktop
+drwx------+  47 jrs  staff   1.5K Nov 29 22:29 Documents
+drwx------+  18 jrs  staff   576B Dec  6 18:32 Downloads
+drwx------@  12 jrs  staff   384B Dec 12 07:08 Dropbox
+drwx------@  41 jrs  staff   1.3K Apr  3  2016 Google Drive
+drwx------@  80 jrs  staff   2.5K Dec 12 07:08 Library
+drwx------+  12 jrs  staff   384B Nov 19 12:31 Movies
+drwx------+  10 jrs  staff   320B Nov 19 14:26 Music
+drwx------+ 174 jrs  staff   5.4K Nov 29 17:20 Pictures
+drwxr-xr-x@  45 jrs  staff   1.4K Dec 11 21:37 Prog
