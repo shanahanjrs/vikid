@@ -13,7 +13,7 @@ import os
 import subprocess
 import json
 import uuid
-from typing import Any, Dict, Tuple, List, IO
+from typing import Any, Dict, Tuple, List, IO, Optional, Union
 
 from src.fs import fs as filesystem
 
@@ -64,7 +64,8 @@ class Job:
         return quote + string + quote
 
 
-    def _run_shell_command(self, command: str, output_filename: str, job_arguments: Any = None) -> Tuple[bool, int]:
+    def _run_shell_command(self, command: str, output_filename: str,
+                           job_arguments: Optional[List[str]] = None) -> Tuple[bool, int]:
         """ _run_shell_command
         string:command Shell command to run
         string:file path Where the command results (stdout) are stored
@@ -169,21 +170,21 @@ class Job:
         return ret
 
 
-    def output_job(self, name):
+    def output_job(self, name: str) -> Dict[str, Any]:
         """
         Get the output file of a specific job and return the contents of the file
         """
-        message = "Ok"
-        success = 1
-        contents = ""
+        message: str = "Ok"
+        success: int = 1
+        contents: str = ""
 
         try:
 
             if name is None:
                 raise ValueError('Missing required field: job_name')
 
-            job_directory = self.jobs_path + "/" + name
-            output_file = job_directory + "/" + self.job_output_file
+            job_directory: str = self.jobs_path + "/" + name
+            output_file: str = job_directory + "/" + self.job_output_file
 
             if os.path.isdir(job_directory) and os.path.exists(output_file):
                 contents = filesystem.read_last_run_output(output_file)
@@ -197,16 +198,16 @@ class Job:
         return {"success": success, "message": message, "name": name, "output": contents}
 
 
-    def create_job(self, new_name, json_text):
+    def create_job(self, new_name: str, data: Dict[str, Union[str, int]]) -> Dict[str, Any]:
         """ Adds a job """
-        message = "Job created successfully"
-        success = 1
+        message: str = "Job created successfully"
+        success: int = 1
 
         try:
 
             # Generate path and file name
-            job_dir = self.jobs_path + "/" + new_name
-            job_filename = job_dir + "/" + self.job_config_filename
+            job_dir: str = self.jobs_path + "/" + new_name
+            job_filename: str = job_dir + "/" + self.job_config_filename
 
             # Bail if
             if os.path.exists(job_dir):
@@ -214,23 +215,19 @@ class Job:
             else:
                 os.mkdir(job_dir)
 
-            # Create Json array for _write_job_file
-            if isinstance(json_text, str):
-                json_text = ast.literal_eval(json_text)
-
-            if not json_text['description']:
+            if 'description' not in  data.keys():
                 raise ValueError('Missing description')
 
-            if not json_text['steps']:
+            if 'steps' not in  data.keys():
                 raise ValueError('Missing steps')
 
-            json_text['runNumber'] = 0
-            json_text['lastSuccessfulRun'] = 0
-            json_text['lastFailedRun'] = 0
-            json_text['name'] = new_name
+            data['runNumber'] = 0
+            data['lastSuccessfulRun'] = 0
+            data['lastFailedRun'] = 0
+            data['name'] = new_name
 
             # Create job file
-            filesystem.write_job_file(job_filename, json_text)
+            filesystem.write_job_file(job_filename, data)
 
         except (ValueError, SystemError) as error:
             message = str(error)
@@ -241,10 +238,10 @@ class Job:
         return ret
 
 
-    def update_job(self, name, config=None):
+    def update_job(self, name: str, data: Dict[str, Any]) -> Dict[str, Any]:
         """ Update an existing job """
-        success = 1
-        message = "Job successfully updated"
+        message: str = "Job successfully updated"
+        success: int = 1
 
         try:
 
@@ -265,21 +262,21 @@ class Job:
         return {"success": success, "message": message}
 
 
-    def run_job(self, name, job_args=None):
+    def run_job(self, name: str, job_args: Optional[List[str]] = None):
         """ Run a specific job """
-        success = 1
-        message = "Run successful"
-        return_code = 0
+        message: str = "Run successful"
+        success: int = 1
+        return_code: int = 0
 
         # Construct job directory and file path names
-        job_dir = self.jobs_path + "/" + name
-        job_config_json_file = job_dir + "/" + "config.json"
+        job_dir: str = self.jobs_path + "/" + name
+        job_config_json_file: str = job_dir + "/" + "config.json"
 
         # Generate a tmp directory to work in
         # Use uuid4() because it creates a truly random uuid
         # and doesnt require any arguments and uuid1 uses
         # the system network addr.
-        tmp_cwd = "/tmp/viki-" + str(uuid.uuid4())
+        tmp_cwd: str = "/tmp/viki-" + str(uuid.uuid4())
         os.mkdir(tmp_cwd)
 
         try:
@@ -302,10 +299,10 @@ class Job:
 
             # Create filename path for output file
             # todo: Move this to store the output in each individual build dir
-            filename = job_dir + "/" + "output.txt"
+            filename: str = job_dir + "/" + "output.txt"
 
             # Grab the json array "steps" from jobs/<jobName>/config.json
-            job_steps = job_json['steps']
+            job_steps: str = job_json['steps']
 
             # Execute them individually
             # If any of these steps fail then we stop execution
@@ -329,19 +326,16 @@ class Job:
         return {"success": success, "message": message, "return_code": return_code}
 
 
-    def delete_job(self, name):
+    def delete_job(self, name: str) -> Dict[str, Any]:
         """ Removes a job by name
         Takes a job's name and removes the directory that the job lives in
         """
-        success = 1
-        message = "Job deleted"
+        message: str = "Job deleted"
+        success: int = 1
 
         try:
 
-            if name is None:
-                raise ValueError('Missing job name')
-
-            job_dir = self.jobs_path + '/' + name
+            job_dir: str = self.jobs_path + '/' + name
 
             # Check job directory exists
             # Otherwise raise OSError
