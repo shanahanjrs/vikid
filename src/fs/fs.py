@@ -67,7 +67,7 @@ def dirty_rm_rf(directory_name):
     """
 
     subprocess.call(
-        [b'/bin/bash', b'-c', 'rm -rf ' + directory_name]
+        [u'/bin/bash', u'-c', u'rm -rf ' + directory_name]
     )
 
     return True
@@ -80,9 +80,7 @@ def job_exists(job_name):
     :returns bool:
     """
     path = '{}/{}'.format(jobs_path, job_name)
-    print('jobs path: {}'.format(jobs_path))
-    print('job name: {}'.format(job_name))
-    print('path: {}'.format(path))
+
     return os.path.exists(path)
 
 
