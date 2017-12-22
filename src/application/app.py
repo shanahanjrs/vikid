@@ -55,6 +55,8 @@ logging_config = dict(
     },
 )
 
+_required_dirs = [home, jobs_path, job_config_path, logfile_path]
+
 def check_system_setup():
     """ This will be run every time viki starts up
     It will check to make sure the home directory exists,
@@ -62,13 +64,17 @@ def check_system_setup():
     that the jobs directory exists.
     If those are not setup correctly you will need to run viki with sudo to create them.
     """
-    dirs = [home, jobs_path, job_config_path, job_config_filename, logfile_path]
 
-    for j in dirs:
+    for j in _required_dirs:
         if not os.path.exists(j):
             return False
 
     return True
+
+
+def fix_system_setup():
+    """ Generate the required directories/files needed for a basic Viki daemon to run """
+
 
 
 def create_home_dir():
@@ -79,7 +85,7 @@ def create_home_dir():
         return False
 
     if os.path.exists(home):
-        return False
+        return True
 
     os.mkdir(home, mode=file_perms)
 
@@ -94,7 +100,7 @@ def generate_config_file():
         return False
 
     if os.path.exists(job_config_path):
-        return False
+        return True
 
     tmp_conf_file = """
     {
@@ -119,7 +125,7 @@ def generate_log_file():
         return False
 
     if os.path.exists(logfile_path):
-        return False
+        return True
 
     tmp_logfile = ''
 
@@ -140,7 +146,7 @@ def create_jobs_dir():
         return False
 
     if os.path.exists(jobs_path):
-        return False
+        return True
 
     os.mkdir(jobs_path, mode=file_perms)
 
