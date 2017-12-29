@@ -262,7 +262,7 @@ class Job:
         return {"success": success, "message": message}
 
 
-    def run_job(self, name: str, job_args: Optional[List[str]] = None):
+    def run_job(self, name: str, job_args: Optional[List[str]] = None) -> Dict[str, Any]:
         """ Run a specific job """
         message: str = "Run successful"
         success: int = 1
