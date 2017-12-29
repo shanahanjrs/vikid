@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'flask',
         'setuptools-git',
+        'pyyaml',
         'gunicorn'
     ],
     setup_requires=[
