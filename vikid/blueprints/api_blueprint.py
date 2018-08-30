@@ -9,7 +9,7 @@ This module implements the main Job api for Viki.
 """
 
 from flask import Blueprint, jsonify, request
-from src.job import Job
+from vikid.job import Job
 
 blueprint_name = 'api_blueprint'
 template_folder_name = 'templates'

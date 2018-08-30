@@ -9,8 +9,8 @@ Usage:
 
 # --- Imports
 
-from src.job.job import Job
-from src.fs import fs as filesystem
+from vikid.job.job import Job
+from vikid.fs import fs as filesystem
 
 import sys
 import os

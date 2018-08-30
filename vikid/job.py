@@ -15,7 +15,7 @@ import json
 import uuid
 from typing import Any, Dict, Tuple, List, IO, Optional, Union
 
-from src import fs as filesystem
+from vikid import fs as filesystem
 
 
 class Job:

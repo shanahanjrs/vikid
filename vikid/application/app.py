@@ -9,8 +9,8 @@ This module implements the App class for main application details and system che
 """
 
 import os
-import src._version
-import src._conf
+import vikid._version
+import vikid._conf
 import logging
 
 """
@@ -22,9 +22,9 @@ import logging
 """
 
 # Provide version
-version = src._version.__version__
+version = vikid._version.__version__
 
-from src._conf import home_dir, jobs_dir, config_filename, config_file_abs_path, logs_dir
+from vikid._conf import home_dir, jobs_dir, config_filename, config_file_abs_path, logs_dir
 
 # File permissions
 file_perms = 0o755

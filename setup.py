@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
-import src._version
+import vikid._version
 
 setup(
     name='vikid',
-    version=src._version.__version__,
+    version=vikid._version.__version__,
     url='https://vikiautomation.com',
     author='John Shanahan',
     author_email='shanahan.jrs@gmail.com',

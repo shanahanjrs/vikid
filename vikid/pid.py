@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
-""" 
+"""
 pid.py
- ~~~~~
+~~~~~~
 
 ProcessId library - internal to Viki
-:license: Apache2, see LICENSE for more details. 
+:license: Apache2, see LICENSE for more details
 """
 
 import os
-from src.application.app import App
+from vikid.application.app import App
 
 class Lock():
     """ Lock/pid file library for viki """

@@ -8,7 +8,7 @@ Filesystem library - internal to Viki
 :license: Apache2, see LICENSE for more details
 """
 
-from src.application import app
+from vikid.application import app
 
 import os
 import subprocess

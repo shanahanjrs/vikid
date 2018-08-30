@@ -29,8 +29,8 @@ import os
 import logging
 from logging.config import dictConfig
 
-from src.application import app as viki_app
-from src.blueprints import api_blueprint, ui_blueprint
+from vikid.application import app as viki_app
+from vikid.blueprints import api_blueprint, ui_blueprint
 
 
 # --- Setup
