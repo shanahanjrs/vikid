@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
-""" 
+"""
 job.py
- ~~~~~~
+~~~~~~
 
-  This module implements the main Job api for Viki.
-:license: Apache2, see LICENSE for more details. 
+This module implements the main Job api for Viki
+:license: Apache2, see LICENSE for more details
 """
 
 import ast
@@ -15,7 +15,7 @@ import json
 import uuid
 from typing import Any, Dict, Tuple, List, IO, Optional, Union
 
-from src.fs import fs as filesystem
+from src import fs as filesystem
 
 
 class Job:

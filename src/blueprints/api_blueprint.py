@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
-""" 
+"""
 api_blueprint.py
 ~~~~~~~~~~~~~~~~~
 
@@ -8,11 +8,9 @@ This module implements the main Job api for Viki.
 :license: Apache2, see LICENSE for more details. 
 """
 
-# --- Imports
 from flask import Blueprint, jsonify, request
-from src.job.job import Job
+from src.job import Job
 
-# --- Vars
 blueprint_name = 'api_blueprint'
 template_folder_name = 'templates'
 

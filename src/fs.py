@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
-""" 
+"""
 fs.py
- ~~~~~
+~~~~~
 
 Filesystem library - internal to Viki
-:license: Apache2, see LICENSE for more details. 
+:license: Apache2, see LICENSE for more details
 """
 
 from src.application import app
@@ -14,7 +14,7 @@ import os
 import subprocess
 import json
 
-home = app.home
+home = app.home_dir
 jobs_path = "{}/jobs".format(home)
 job_output_file = "output.txt"
 job_config_filename = "config.json"

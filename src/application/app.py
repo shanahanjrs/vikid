@@ -1,37 +1,30 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
-""" 
-app.py
- ~~~~~~
-
-  This module implements the App class for main application details and system checks / maintenance.
-:license: Apache2, see LICENSE for more details. 
 """
+app.py
+~~~~~~
 
-# --- Imports
+This module implements the App class for main application details and system checks / maintenance.
+:license: Apache2, see LICENSE for more details
+"""
 
 import os
 import src._version
 import src._conf
 import logging
 
+"""
+    "home_dir",
+    "jobs_dir",
+    "config_filename",
+    "config_file_abs_path",
+    "logs_dir"
+"""
+
 # Provide version
 version = src._version.__version__
 
-# Viki home directory
-home = src._conf.__config_home__
-
-# Path to the jobs directory
-jobs_path = src._conf.__config_jobs_dir__
-
-# Name of viki conf file
-job_config_filename = src._conf.__config_filename__
-
-# Abs path to conf file
-job_config_path = src._conf.__config_file_path__
-
-# Abs path to logs file
-logfile_path = src._conf.__logfile_path__
+from src._conf import home_dir, jobs_dir, config_filename, config_file_abs_path, logs_dir
 
 # File permissions
 file_perms = 0o755
@@ -46,7 +39,7 @@ logging_config = dict(
     handlers = {
         'h': {'class': 'logging.FileHandler',
         'formatter': 'f',
-        'filename': logfile_path + '/viki.log',
+        'filename': logs_dir + '/viki.log',
         'level': logging.DEBUG}
     },
     root = {
@@ -62,26 +55,52 @@ def check_system_setup():
     that the jobs directory exists.
     If those are not setup correctly you will need to run viki with sudo to create them.
     """
-    dirs = [home, jobs_path, job_config_path, job_config_filename, logfile_path]
+    # TODO some of these aren't required, create a list of those that we can accept when missing
+    dirs = [home_dir, jobs_dir, config_file_abs_path, logs_dir]
 
     for j in dirs:
         if not os.path.exists(j):
+            print('Missing file [{}]...'.format(j))
             return False
 
     return True
+
+
+def create_system_setup():
+    """
+    Creates the required files/directories
+    """
+    dirs = [
+        home_dir, jobs_dir, logs_dir
+    ]
+    files = [
+        config_file_abs_path
+    ]
+
+    for j in dirs:
+        if not os.path.exists(j):
+            print('Creating dir [{}]...'.format(j))
+            os.mkdir(j)
+
+    # TODO use the helper funcs below to create these files the right way
+    for k in files:
+        if not os.path.exists(k):
+            with open(k, 'w') as file_obj:
+                print('Creating file [{}]...'.format(k))
+                file_obj.write('')
 
 
 def create_home_dir():
     """ Creates the home directory """
     print('Creating home directory...')
 
-    if not home:
+    if not home_dir:
         return False
 
-    if os.path.exists(home):
+    if os.path.exists(home_dir):
         return False
 
-    os.mkdir(home, mode=file_perms)
+    os.mkdir(home_dir, mode=file_perms)
 
     return True
 
@@ -90,10 +109,10 @@ def generate_config_file():
     """ Generates a starter viki configuration file """
     print('Generating configuration file...')
 
-    if not job_config_path:
+    if not config_file_abs_path:
         return False
 
-    if os.path.exists(job_config_path):
+    if os.path.exists(config_file_abs_path):
         return False
 
     tmp_conf_file = """
@@ -136,12 +155,12 @@ def create_jobs_dir():
     """ Create the jobs directory under viki home """
     print('Creating jobs directory...')
 
-    if not jobs_path:
+    if not jobs_dir:
         return False
 
-    if os.path.exists(jobs_path):
+    if os.path.exists(jobs_dir):
         return False
 
-    os.mkdir(jobs_path, mode=file_perms)
+    os.mkdir(jobs_dir, mode=file_perms)
 
     return True

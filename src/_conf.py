@@ -1,20 +1,28 @@
-# -*- coding: utf-8 -*-  
+# coding: utf-8
 
 """
 _conf.py
 ~~~~~~~~
 
-Provides Viki configuration information.
+Provides Viki default configuration
 
-:license: Apache2, see LICENSE for more details. 
+use ~/.viki/vikid.json to override these options.
+
+:license: Apache2, see LICENSE for more details
 """
 
 import os
 
-__config_home__ = "{}/.viki".format(os.path.expanduser("~"))
-__config_jobs_dir__ = __config_home__ + "/jobs"
-__config_filename__ = "viki.json"
-__config_file_path__ = __config_home__ + "/" + __config_filename__
-__logfile_path__ = __config_home__ + "/logs"
+home_dir = "{}/.viki".format(os.path.expanduser("~"))
+jobs_dir = home_dir + "/jobs"
+logs_dir = home_dir + "/logs"
+config_filename = "viki.json"
+config_file_abs_path = home_dir + "/" + config_filename
 
-__all__ = ["__config_home__", "__config_jobs_dir__", "__config_filename__", "__config_file_path__", "__logfile_path__" ]
+__all__ = [
+    "home_dir",
+    "jobs_dir",
+    "config_filename",
+    "config_file_abs_path",
+    "logs_dir"
+]

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# coding: utf-8
 
 """
 Viki daemon
@@ -20,42 +21,36 @@ License:
 
 """
 
+import signal
+import sys
 
-# --- Imports
+from flask import Flask, request, jsonify
+import os
+import logging
+from logging.config import dictConfig
 
-try:
-    import signal
-    import sys
-
-    from flask import Flask, request, jsonify
-    import os
-    import logging
-    from logging.config import dictConfig
-
-    from src.job.job import Job
-    from src.application import app as viki_app
-    from src.blueprints import api_blueprint, ui_blueprint
-
-except ImportError as error:
-    sys.exit('ImportError: ' + str(error))
+from src.application import app as viki_app
+from src.blueprints import api_blueprint, ui_blueprint
 
 
 # --- Setup
 
-debug = True
-
-
-# --- Classes / globals
+debug_mode = True
 
 app = Flask(__name__)
-job = Job()
 version = viki_app.version
 
+# Pre-flight checks
+
+if '--setup' in sys.argv:
+    viki_app.create_system_setup()
+    exit('System setup finished')
+
 if not viki_app.check_system_setup():
-    sys.exit('System check failed. Please run `sudo viki --setup`')
+    sys.exit('System check failed. Please run `vikid --setup`')
 
 # TODO pull all of this from App
-home_directory = viki_app.home
+home_directory = viki_app.home_dir
 dictConfig(viki_app.logging_config)
 logger = logging.getLogger()
 
@@ -81,4 +76,4 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-app.run(port=9898)
+app.run(port=9898, debug=debug_mode)
